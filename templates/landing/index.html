@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if site %}{{ site.browser_title|default:site.site_name }}{% else %}My Website{% endif %}</title>
+  {% if site.favicon %}
+    <link rel="icon" href="{{ site.favicon.url }}">
+  {% endif %}
+  <meta name="description" content="{{ site.meta_description }}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  {% include "landing/partials/navbar.html" %}
+  {% include "landing/partials/hero.html" %}
+  {% include "landing/partials/stats.html" %}
+  {% include "landing/partials/fleet.html" %}
+  {% include "landing/partials/packages.html" %}
+  {% include "landing/partials/services.html" %}
+  {% include "landing/partials/whyus.html" %}
+  {% include "landing/partials/destinations.html" %}
+  {% include "landing/partials/steps.html" %}
+  {% include "landing/partials/about.html" %}
+  {% include "landing/partials/reviews.html" %}
+  {% include "landing/partials/gallery.html" %}
+  {% include "landing/partials/faq.html" %}
+  {% include "landing/partials/contact.html" %}
+  {% include "landing/partials/cta.html" %}
+  {% include "landing/partials/footer.html" %}
+  <!-- next sections go here as we build them: about, services, fleet, packages, gallery, testimonials, faq, contact, footer -->
+
+  {% if site.whatsapp_number or site.phone %}
+  <div class="floating-actions" id="floatingActions">
+    {% if site.whatsapp_number %}
+    <a href="https://wa.me/{{ site.whatsapp_number }}" target="_blank" rel="noopener" class="fab fab-whatsapp" aria-label="Chat on WhatsApp">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.001 2C6.478 2 2 6.478 2 12c0 1.821.487 3.53 1.338 5.003L2 22l5.116-1.34A9.94 9.94 0 0012.001 22C17.523 22 22 17.523 22 12S17.523 2 12.001 2zm0 18.174a8.15 8.15 0 01-4.153-1.14l-.298-.177-3.037.796.81-2.96-.194-.304a8.15 8.15 0 01-1.256-4.39c0-4.508 3.667-8.174 8.174-8.174 4.508 0 8.174 3.666 8.174 8.174 0 4.507-3.666 8.175-8.174 8.175z"/></svg>
+    </a>
+    {% endif %}
+    {% if site.phone %}
+    <a href="tel:{{ site.phone }}" class="fab fab-call" aria-label="Call now">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.57.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.49a1 1 0 011 1 11.36 11.36 0 00.57 3.57 1 1 0 01-.25 1.01l-2.2 2.21z"/></svg>
+    </a>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <script src="{% static 'js/scroll-reveal.js' %}"></script>
+  <script src="{% static 'js/floating-actions.js' %}"></script>
+</body>
+</html>

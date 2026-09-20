@@ -1,0 +1,73 @@
+{% load static %}
+<section class="packages-section" id="packages">
+  <div class="container">
+
+    <div class="packages-header reveal">
+      <div class="packages-header-text">
+        <span class="section-eyebrow">{{ packages_section.eyebrow }}</span>
+        <h2 class="packages-title">{{ packages_section.heading }}</h2>
+        {% if packages_section.subtitle %}
+          <p class="packages-subtitle">{{ packages_section.subtitle }}</p>
+        {% endif %}
+      </div>
+      <div class="packages-nav">
+        <button type="button" class="packages-arrow" id="packagesPrev" aria-label="Previous">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button type="button" class="packages-arrow" id="packagesNext" aria-label="Next">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="packages-scroll" id="packagesScroll">
+      {% for package in tour_packages %}
+        <article class="package-card reveal">
+          <div class="package-image">
+            {% if package.image %}<img src="{{ package.image.url }}" alt="{{ package.title }}">{% endif %}
+            <span class="package-duration">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+              {{ package.duration }}
+            </span>
+            <span class="package-number">{{ forloop.counter|stringformat:"02d" }}</span>
+          </div>
+          <div class="package-body">
+            <span class="package-location">{{ package.location_tag }}</span>
+            <h3 class="package-title">{{ package.title }}</h3>
+            {% if package.description %}<p class="package-desc">{{ package.description }}</p>{% endif %}
+            <div class="package-actions">
+              <a href="#contact" class="btn btn-outline btn-sm package-btn">View Details</a>
+              <a href="#quick-enquiry" class="btn btn-primary btn-sm package-btn">Enquire Now</a>
+            </div>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+
+    <p class="packages-swipe-hint">&larr; Swipe to explore &rarr;</p>
+
+  </div>
+</section>
+
+<script>
+  (function () {
+    const scroller = document.getElementById('packagesScroll');
+    const prevBtn = document.getElementById('packagesPrev');
+    const nextBtn = document.getElementById('packagesNext');
+    if (!scroller) return;
+
+    function cardStep() {
+      const card = scroller.querySelector('.package-card');
+      return card ? card.offsetWidth + 24 : 340;
+    }
+
+    prevBtn.addEventListener('click', function () {
+      scroller.scrollBy({ left: -cardStep(), behavior: 'smooth' });
+    });
+    nextBtn.addEventListener('click', function () {
+      scroller.scrollBy({ left: cardStep(), behavior: 'smooth' });
+    });
+  })();
+</script>

@@ -1,0 +1,78 @@
+{% load static %}
+<section class="reviews-section" id="reviews">
+  <div class="container">
+
+    <div class="packages-header reviews-header reveal">
+      <div class="packages-header-text">
+        <span class="section-eyebrow">{{ reviews_section.eyebrow }}</span>
+        <h2 class="reviews-title">{{ reviews_section.heading }}</h2>
+        {% if reviews_section.subtitle %}
+          <p class="reviews-subtitle">{{ reviews_section.subtitle }}</p>
+        {% endif %}
+      </div>
+      <div class="packages-nav">
+        <button type="button" class="packages-arrow reviews-arrow" id="reviewsPrev" aria-label="Previous">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button type="button" class="packages-arrow reviews-arrow" id="reviewsNext" aria-label="Next">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="reviews-scroll" id="reviewsScroll">
+      {% for review in reviews %}
+        <article class="review-card reveal">
+          <div class="review-card-top">
+            <div class="review-stars">
+              {% for i in "12345" %}
+                <svg width="15" height="15" viewBox="0 0 24 24" {% if forloop.counter <= review.rating %}fill="#f5820d"{% else %}fill="none"{% endif %} stroke="#f5820d" stroke-width="1.5">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                </svg>
+              {% endfor %}
+            </div>
+            <svg class="review-quote-icon" width="26" height="26" viewBox="0 0 24 24" fill="#f5820d">
+              <path d="M9.5 5C6 5 3 8 3 11.5c0 3 2 5.5 5 5.5.3 0 .6 0 .9-.1-.6 2-2.3 3.6-4.4 4.1v2c4-.6 7-4 7-8.5v-4C11.5 7 10.7 5 9.5 5zm10 0c-3.5 0-6.5 3-6.5 6.5 0 3 2 5.5 5 5.5.3 0 .6 0 .9-.1-.6 2-2.3 3.6-4.4 4.1v2c4-.6 7-4 7-8.5v-4C21.5 7 20.7 5 19.5 5z"/>
+            </svg>
+          </div>
+
+          <p class="review-quote">&ldquo;{{ review.quote }}&rdquo;</p>
+
+          <div class="review-divider"></div>
+
+          <div class="review-person">
+            <span class="review-avatar">{{ review.initials }}</span>
+            <span class="review-person-text">
+              <strong>{{ review.name }}</strong>
+              <span>{{ review.location }}</span>
+            </span>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+
+    <p class="packages-swipe-hint">&larr; Swipe to explore &rarr;</p>
+
+  </div>
+</section>
+
+<script>
+  (function () {
+    const scroller = document.getElementById('reviewsScroll');
+    const prevBtn = document.getElementById('reviewsPrev');
+    const nextBtn = document.getElementById('reviewsNext');
+    if (!scroller) return;
+
+    function cardStep() {
+      const card = scroller.querySelector('.review-card');
+      return card ? card.offsetWidth + 24 : 340;
+    }
+
+    prevBtn.addEventListener('click', function () {
+      scroller.scrollBy({ left: -cardStep(), behavior: 'smooth' });
+    });
+    nextBtn.addEventListener('click', function () {
+      scroller.scrollBy({ left: cardStep(), behavior: 'smooth' });
+    });
+  })();
+</script>

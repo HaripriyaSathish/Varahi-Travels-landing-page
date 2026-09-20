@@ -1,0 +1,42 @@
+{% load static %}
+<section class="about-section" id="about">
+  <div class="container about-grid">
+
+    <div class="about-image-wrap reveal">
+      {% if about.image %}
+        <img src="{{ about.image.url }}" alt="{{ about.heading }}">
+      {% endif %}
+      <div class="about-badge">
+        <strong>{{ about.badge_title }}</strong>
+        <span>{{ about.badge_subtitle }}</span>
+      </div>
+    </div>
+
+    <div class="about-content reveal">
+      <span class="section-eyebrow">{{ about.eyebrow }}</span>
+      <h2 class="about-heading">{{ about.heading }}</h2>
+
+      {% if about.paragraph_1 %}<p class="about-desc">{{ about.paragraph_1 }}</p>{% endif %}
+      {% if about.paragraph_2 %}<p class="about-desc">{{ about.paragraph_2 }}</p>{% endif %}
+
+      <ul class="about-checklist">
+        {% for item in about_checklist %}
+          <li class="about-check-item">
+            <span class="about-check-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            {{ item.text }}
+          </li>
+        {% endfor %}
+      </ul>
+
+      <a href="{{ about.button_link }}" class="btn btn-primary about-cta">
+        {{ about.button_text }}
+        <span class="arrow">&rarr;</span>
+      </a>
+    </div>
+
+  </div>
+</section>

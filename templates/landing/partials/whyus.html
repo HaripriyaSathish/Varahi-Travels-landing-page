@@ -1,0 +1,65 @@
+{% load static %}
+<section class="whyus-section" id="whyus">
+  <div class="container">
+
+    <div class="section-heading reveal">
+      <span class="section-eyebrow">{{ whyus_section.eyebrow }}</span>
+      <h2 class="section-title">{{ whyus_section.heading }}</h2>
+      {% if whyus_section.subtitle %}
+        <p class="section-subtitle">{{ whyus_section.subtitle }}</p>
+      {% endif %}
+    </div>
+
+    <div class="whyus-grid">
+      {% for item in whyus_items %}
+        <div class="whyus-card reveal">
+          <div class="whyus-card-top">
+            <span class="whyus-icon">
+              {% if item.icon == 'award' %}
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/><circle cx="12" cy="8" r="6"/>
+                </svg>
+              {% elif item.icon == 'car' %}
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11"/>
+                  <rect x="3" y="11" width="18" height="6" rx="2"/>
+                  <circle cx="7.5" cy="17" r="1.5"/><circle cx="16.5" cy="17" r="1.5"/>
+                </svg>
+              {% elif item.icon == 'ticket' %}
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/>
+                  <path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/>
+                </svg>
+              {% elif item.icon == 'map' %}
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/>
+                  <path d="M15 5.764v15"/><path d="M9 3.236v15"/>
+                </svg>
+              {% elif item.icon == 'headphones' %}
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/>
+                </svg>
+              {% elif item.icon == 'shield' %}
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+                  <path d="m9 12 2 2 4-4"/>
+                </svg>
+              {% elif item.icon == 'sparkles' %}
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m12 3-1.9 5.8a2 2 0 0 1-1.287 1.288L3 12l5.8 1.9a2 2 0 0 1 1.288 1.287L12 21l1.9-5.8a2 2 0 0 1 1.287-1.288L21 12l-5.8-1.9a2 2 0 0 1-1.288-1.287Z"/>
+                </svg>
+              {% elif item.icon == 'navigation' %}
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+                </svg>
+              {% endif %}
+            </span>
+            <span class="whyus-number">{{ forloop.counter|stringformat:"02d" }}</span>
+          </div>
+          <h3 class="whyus-title">{{ item.title }}</h3>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>

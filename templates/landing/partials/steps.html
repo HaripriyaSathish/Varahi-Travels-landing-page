@@ -1,0 +1,45 @@
+{% load static %}
+<section class="steps-section" id="how-it-works">
+  <div class="container">
+
+    <div class="section-heading reveal">
+      <span class="section-eyebrow">{{ steps_section.eyebrow }}</span>
+      <h2 class="steps-title">{{ steps_section.heading }}</h2>
+    </div>
+
+    <div class="steps-row">
+      <div class="steps-connector"></div>
+      {% for step in steps %}
+        <div class="step-item reveal">
+          <span class="step-circle">
+            {% if step.icon == 'map_pin' %}
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+            {% elif step.icon == 'car' %}
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11"/>
+                <rect x="3" y="11" width="18" height="6" rx="2"/>
+                <circle cx="7.5" cy="17" r="1.5"/><circle cx="16.5" cy="17" r="1.5"/>
+              </svg>
+            {% elif step.icon == 'ticket' %}
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/>
+                <path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/>
+              </svg>
+            {% elif step.icon == 'palm' %}
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13 8c0-2.76-2.46-5-5.5-5S2 5.24 2 8h2l1-1 1 1h4"/>
+                <path d="M13 7.14A5.82 5.82 0 0 1 16.5 6c3.04 0 5.5 2.24 5.5 5h-3l-1-1-1 1h-3"/>
+                <path d="M12 8c-1.5 0-3 1-3 3v10h2v-6h2v6h2V11c0-2-1.5-3-3-3z"/>
+              </svg>
+            {% endif %}
+          </span>
+          <span class="step-number">{{ forloop.counter|stringformat:"02d" }}</span>
+          <h3 class="step-title">{{ step.title }}</h3>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>

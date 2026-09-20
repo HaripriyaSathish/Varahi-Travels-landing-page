@@ -1,0 +1,207 @@
+{% load static %}
+<section class="hero" id="home">
+  {% if hero.background_image %}
+    <div class="hero-bg" style="background-image:url('{{ hero.background_image.url }}');"></div>
+  {% endif %}
+  <div class="hero-overlay"></div>
+
+  <div class="container hero-grid">
+
+    <div class="hero-content reveal">
+      <span class="hero-badge">
+        <svg class="icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s7-7.58 7-12.5A7 7 0 0 0 5 9.5C5 14.42 12 22 12 22z"/>
+          <circle cx="12" cy="9.5" r="2.5"/>
+        </svg>
+        {{ hero.location_label }}
+      </span>
+
+      <h1 class="hero-title">
+        {{ hero.heading_main }}<br>
+        <span class="highlight">{{ hero.heading_highlight }}</span>
+      </h1>
+
+      <p class="hero-desc">{{ hero.description }}</p>
+
+      <div class="hero-buttons">
+        <a href="{{ hero.button1_link }}" class="btn btn-primary">
+          <svg class="icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11"/>
+            <rect x="3" y="11" width="18" height="6" rx="2"/>
+            <circle cx="7.5" cy="17" r="1.5"/>
+            <circle cx="16.5" cy="17" r="1.5"/>
+          </svg>
+          {{ hero.button1_text }}
+        </a>
+        <a href="{{ hero.button2_link }}" class="btn btn-secondary">
+          {{ hero.button2_text }} <span class="arrow">&rarr;</span>
+        </a>
+      </div>
+
+      <div class="hero-trust-list">
+        {% if hero.trust_badge_1 %}
+          <div class="hero-trust-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="3">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            {{ hero.trust_badge_1 }}
+          </div>
+        {% endif %}
+        {% if hero.trust_badge_2 %}
+          <div class="hero-trust-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="3">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            {{ hero.trust_badge_2 }}
+          </div>
+        {% endif %}
+        {% if hero.trust_badge_3 %}
+          <div class="hero-trust-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="3">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            {{ hero.trust_badge_3 }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="enquiry-card reveal" id="quick-enquiry">
+      <span class="enquiry-label">Quick Enquiry</span>
+      <h3>Where would you like to go?</h3>
+
+      {% if messages %}
+        {% for message in messages %}
+          {% if message.tags == 'success' %}
+            <div class="form-alert success">{{ message }}</div>
+          {% elif message.tags == 'error' %}
+            <div class="form-alert error">{{ message }}</div>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+
+      <form method="post" action="{% url 'submit_enquiry' %}" class="enquiry-form" id="heroEnquiryForm" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="source" value="hero">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="pickup_location">Pickup Location</label>
+            <input type="text" id="pickup_location" name="pickup_location" placeholder="Madurai"
+                   pattern="[A-Za-z\s]+" title="Letters only" autocomplete="off" required>
+            <span class="error-msg"></span>
+          </div>
+          <div class="form-group">
+            <label for="destination">Destination</label>
+            <input type="text" id="destination" name="destination" placeholder="e.g. Rameshwaram"
+                   pattern="[A-Za-z\s]+" title="Letters only" autocomplete="off" required>
+            <span class="error-msg"></span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="travel_date">Travel Date</label>
+            <input type="date" id="travel_date" name="travel_date" required>
+            <span class="error-msg"></span>
+          </div>
+          <div class="form-group">
+            <label for="passengers">Passengers</label>
+            <input type="number" id="passengers" name="passengers" min="1" max="20" placeholder="2" required>
+            <span class="error-msg"></span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="vehicle_type">Vehicle Type</label>
+            <select id="vehicle_type" name="vehicle_type" required>
+              <option value="">Select vehicle</option>
+              <option value="mini">Mini / Hatchback</option>
+              <option value="sedan">Sedan</option>
+              <option value="suv">SUV</option>
+              <option value="innova">Innova</option>
+              <option value="innova_crysta">Innova Crysta</option>
+              <option value="tempo">Tempo Traveller</option>
+            </select>
+            <span class="error-msg"></span>
+          </div>
+          <div class="form-group">
+            <label for="phone_number">Phone Number</label>
+            <input type="tel" id="phone_number" name="phone_number" placeholder="Your mobile number"
+                   pattern="[0-9]{10}" maxlength="10" inputmode="numeric" autocomplete="off" required>
+            <span class="error-msg"></span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">
+          <svg class="icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+          </svg>
+          Get a Free Quote
+        </button>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  (function () {
+    const form = document.getElementById('heroEnquiryForm');
+    if (!form) return;
+
+    const todayStr = new Date().toISOString().split('T')[0];
+    form.querySelector('#travel_date').setAttribute('min', todayStr);
+
+    const lettersOnlyIds = ['pickup_location', 'destination'];
+    const phoneField = form.querySelector('#phone_number');
+
+    // Block disallowed characters as the user types, instead of only
+    // catching it on submit.
+    lettersOnlyIds.forEach(function (id) {
+      const field = form.querySelector('#' + id);
+      field.addEventListener('input', function () {
+        field.value = field.value.replace(/[^A-Za-z\s]/g, '');
+      });
+    });
+
+    phoneField.addEventListener('input', function () {
+      phoneField.value = phoneField.value.replace(/[^0-9]/g, '').slice(0, 10);
+    });
+
+    function setError(field, msg) {
+      const errorEl = field.parentElement.querySelector('.error-msg');
+      errorEl.textContent = msg;
+      return !msg;
+    }
+
+    form.addEventListener('submit', function (e) {
+      let valid = true;
+      form.querySelectorAll('.error-msg').forEach(function (el) { el.textContent = ''; });
+
+      form.querySelectorAll('[required]').forEach(function (field) {
+        const value = field.value.trim();
+        let ok = true;
+
+        if (!value) {
+          ok = setError(field, 'This field is required.');
+        } else if (lettersOnlyIds.includes(field.id) && !/^[A-Za-z\s]+$/.test(value)) {
+          ok = setError(field, 'Letters only — no numbers or symbols.');
+        } else if (field.name === 'phone_number' && !/^[0-9]{10}$/.test(value)) {
+          ok = setError(field, 'Enter a valid 10-digit phone number.');
+        } else if (field.name === 'travel_date' && value < todayStr) {
+          ok = setError(field, 'Travel date cannot be in the past.');
+        } else if (field.name === 'passengers' && Number(value) < 1) {
+          ok = setError(field, 'Enter at least 1 passenger.');
+        } else {
+          setError(field, '');
+        }
+
+        if (!ok) valid = false;
+      });
+
+      if (!valid) e.preventDefault();
+    });
+  })();
+</script>

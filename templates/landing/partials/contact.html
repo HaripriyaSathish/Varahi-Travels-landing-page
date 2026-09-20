@@ -1,0 +1,244 @@
+{% load static %}
+<section class="contact-section" id="contact">
+  <div class="container contact-grid">
+
+    <div class="contact-info reveal">
+      <span class="section-eyebrow contact-eyebrow">{{ contact.eyebrow }}</span>
+      <h2 class="contact-heading">{{ contact.heading }}</h2>
+      {% if contact.subtitle %}<p class="contact-subtitle">{{ contact.subtitle }}</p>{% endif %}
+
+      <div class="contact-info-list">
+        <a href="tel:{{ site.phone }}" class="contact-info-item">
+          <span class="contact-info-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </span>
+          <span class="contact-info-text">
+            <small>Call us</small>
+            <strong>{{ site.phone }}</strong>
+          </span>
+        </a>
+
+        <a href="https://wa.me/{{ site.whatsapp_number }}" target="_blank" rel="noopener" class="contact-info-item">
+          <span class="contact-info-icon whatsapp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.9 9.9 0 0 0 4.76 1.21h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.13-2.9-7C17.18 3.03 14.7 2 12.04 2zm5.8 14.02c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.93 0-1.4.73-2.08 1-2.36.26-.28.56-.35.75-.35h.53c.17 0 .4-.06.62.48.24.58.8 2 .87 2.14.07.15.12.32.02.51-.1.19-.15.31-.3.48-.15.17-.31.38-.45.51-.15.14-.3.3-.13.6.17.29.75 1.24 1.62 2 1.11.99 2.05 1.3 2.34 1.44.29.14.46.12.63-.07.17-.19.72-.84.91-1.13.19-.29.38-.24.63-.15.26.1 1.66.79 1.94.93.29.15.48.22.55.34.07.13.07.72-.17 1.4z"/>
+            </svg>
+          </span>
+          <span class="contact-info-text">
+            <small>WhatsApp</small>
+            <strong>Chat with our team</strong>
+          </span>
+        </a>
+
+        <a href="mailto:{{ site.email }}" class="contact-info-item">
+          <span class="contact-info-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+          </span>
+          <span class="contact-info-text">
+            <small>Email us</small>
+            <strong>{{ site.email }}</strong>
+          </span>
+        </a>
+      </div>
+
+      {% if site.map_embed_url %}
+        <div class="contact-map">
+          <iframe src="{{ site.map_embed_url }}" width="100%" height="220" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <a href="{{ site.map_embed_url }}" target="_blank" rel="noopener" class="btn btn-primary contact-map-btn">
+          View on Google Maps <span class="arrow">&rarr;</span>
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="contact-form-card reveal">
+      {% if messages %}
+        {% for message in messages %}
+          {% if message.tags == 'success' %}<div class="form-alert success">{{ message }}</div>{% endif %}
+          {% if message.tags == 'error' %}<div class="form-alert error">{{ message }}</div>{% endif %}
+        {% endfor %}
+      {% endif %}
+
+      <form method="post" action="{% url 'submit_enquiry' %}" id="contactForm" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="source" value="contact">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="c_name">Name</label>
+            <input type="text" id="c_name" name="name" pattern="[A-Za-z\s]+" autocomplete="off" required>
+            <span class="error-msg"></span>
+          </div>
+          <div class="form-group">
+            <label for="c_phone">Phone Number</label>
+            <input type="tel" id="c_phone" name="phone_number" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" required>
+            <span class="error-msg"></span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="c_email">Email</label>
+            <input type="email" id="c_email" name="email" required>
+            <span class="error-msg"></span>
+          </div>
+          <div class="form-group">
+            <label for="c_pickup">Pickup Location</label>
+            <input type="text" id="c_pickup" name="pickup_location" pattern="[A-Za-z\s]+" required>
+            <span class="error-msg"></span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="c_destination">Destination</label>
+            <input type="text" id="c_destination" name="destination" pattern="[A-Za-z\s]+" required>
+            <span class="error-msg"></span>
+          </div>
+          <div class="form-group">
+            <label for="c_date">Travel Date</label>
+            <input type="date" id="c_date" name="travel_date" required>
+            <span class="error-msg"></span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="c_passengers">Number of Passengers</label>
+            <input type="number" id="c_passengers" name="passengers" min="1" max="20" required>
+            <span class="error-msg"></span>
+          </div>
+          <div class="form-group">
+            <label for="c_vehicle">Vehicle Type</label>
+            <select id="c_vehicle" name="vehicle_type" required>
+              <option value="">Select vehicle</option>
+              <option value="mini">Mini / Hatchback</option>
+              <option value="sedan">Sedan</option>
+              <option value="suv">SUV</option>
+              <option value="innova">Innova</option>
+              <option value="innova_crysta">Innova Crysta</option>
+              <option value="tempo">Tempo Traveller</option>
+            </select>
+            <span class="error-msg"></span>
+          </div>
+        </div>
+
+        <div class="form-group form-group-full">
+          <label for="c_message">Message</label>
+          <textarea id="c_message" name="message" rows="4" placeholder="Tell us about your plans"></textarea>
+        </div>
+
+        <div class="contact-form-actions">
+          <button type="submit" id="sendEnquiryBtn" class="btn btn-primary contact-submit-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Send Enquiry
+          </button>
+          <button type="button" id="emailEnquiryBtn" class="btn btn-outline contact-submit-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            Email Enquiry
+          </button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  (function () {
+    const form = document.getElementById('contactForm');
+    if (!form) return;
+
+    const todayStr = new Date().toISOString().split('T')[0];
+    form.querySelector('#c_date').setAttribute('min', todayStr);
+
+    const lettersOnlyIds = ['c_name', 'c_pickup', 'c_destination'];
+    const phoneField = form.querySelector('#c_phone');
+    const passengersField = form.querySelector('#c_passengers');
+
+    lettersOnlyIds.forEach(function (id) {
+      const field = form.querySelector('#' + id);
+      field.addEventListener('input', function () {
+        field.value = field.value.replace(/[^A-Za-z\s]/g, '');
+      });
+    });
+
+    phoneField.addEventListener('input', function () {
+      phoneField.value = phoneField.value.replace(/[^0-9]/g, '').slice(0, 10);
+    });
+
+    passengersField.addEventListener('input', function () {
+      passengersField.value = passengersField.value.replace(/[^0-9]/g, '');
+    });
+
+    function setError(field, msg) {
+      const errorEl = field.parentElement.querySelector('.error-msg');
+      if (errorEl) errorEl.textContent = msg;
+      return !msg;
+    }
+
+    function validateForm() {
+      let valid = true;
+      form.querySelectorAll('.error-msg').forEach(function (el) { el.textContent = ''; });
+
+      form.querySelectorAll('[required]').forEach(function (field) {
+        const value = field.value.trim();
+        let ok = true;
+
+        if (!value) {
+          ok = setError(field, 'This field is required.');
+        } else if (field.id === 'c_email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          ok = setError(field, 'Enter a valid email address.');
+        } else if (lettersOnlyIds.includes(field.id) && !/^[A-Za-z\s]+$/.test(value)) {
+          ok = setError(field, 'Letters only — no numbers or symbols.');
+        } else if (field.id === 'c_phone' && !/^[0-9]{10}$/.test(value)) {
+          ok = setError(field, 'Enter a valid 10-digit phone number.');
+        } else if (field.id === 'c_date' && value < todayStr) {
+          ok = setError(field, 'Travel date cannot be in the past.');
+        } else if (field.id === 'c_passengers' && Number(value) < 1) {
+          ok = setError(field, 'Enter at least 1 passenger.');
+        } else {
+          setError(field, '');
+        }
+
+        if (!ok) valid = false;
+      });
+
+      return valid;
+    }
+
+    function buildSummary() {
+      return 'Name: ' + document.getElementById('c_name').value + '\n' +
+             'Phone: ' + document.getElementById('c_phone').value + '\n' +
+             'Pickup: ' + document.getElementById('c_pickup').value + '\n' +
+             'Destination: ' + document.getElementById('c_destination').value + '\n' +
+             'Travel Date: ' + document.getElementById('c_date').value + '\n' +
+             'Passengers: ' + document.getElementById('c_passengers').value + '\n' +
+             'Vehicle: ' + document.getElementById('c_vehicle').options[document.getElementById('c_vehicle').selectedIndex].text + '\n' +
+             'Message: ' + document.getElementById('c_message').value;
+    }
+
+    form.addEventListener('submit', function (e) {
+      if (!validateForm()) {
+        e.preventDefault();
+        return;
+      }
+      // Also open a prefilled WhatsApp message alongside the normal save + email.
+      const waNumber = '{{ site.whatsapp_number }}';
+      const text = encodeURIComponent('Hi, I would like to enquire:\n\n' + buildSummary());
+      window.open('https://wa.me/' + waNumber + '?text=' + text, '_blank');
+      // form still submits normally to save the enquiry and email the owner
+    });
+
+    document.getElementById('emailEnquiryBtn').addEventListener('click', function () {
+      if (!validateForm()) return;
+      const subject = encodeURIComponent('Travel Enquiry from ' + document.getElementById('c_name').value);
+      const body = encodeURIComponent(buildSummary());
+      window.location.href = 'mailto:{{ site.email }}?subject=' + subject + '&body=' + body;
+    });
+  })();
+</script>
