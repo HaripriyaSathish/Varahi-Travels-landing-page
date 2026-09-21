@@ -57,6 +57,7 @@
             <span class="whyus-number">{{ forloop.counter|stringformat:"02d" }}</span>
           </div>
           <h3 class="whyus-title">{{ item.title }}</h3>
+          {% if item.description %}<p class="whyus-desc">{{ item.description }}</p>{% endif %}
         </div>
       {% endfor %}
     </div>

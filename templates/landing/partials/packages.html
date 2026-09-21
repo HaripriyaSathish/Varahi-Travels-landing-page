@@ -7,7 +7,7 @@
         <span class="section-eyebrow">{{ packages_section.eyebrow }}</span>
         <h2 class="packages-title">{{ packages_section.heading }}</h2>
         {% if packages_section.subtitle %}
-          <p class="packages-subtitle">{{ packages_section.subtitle }}</p>
+          <p class="packages-subtitle">{{ packages_section.subtitle|safe }}</p>
         {% endif %}
       </div>
       <div class="packages-nav">
@@ -36,9 +36,16 @@
           <div class="package-body">
             <span class="package-location">{{ package.location_tag }}</span>
             <h3 class="package-title">{{ package.title }}</h3>
-            {% if package.description %}<p class="package-desc">{{ package.description }}</p>{% endif %}
+            {% if package.description %}<p class="package-desc">{{ package.description|safe }}</p>{% endif %}
+            {% if package.highlights %}
+              <ul class="package-highlights">
+                {% for line in package.highlights.splitlines %}
+                  {% if line.strip %}<li>{{ line }}</li>{% endif %}
+                {% endfor %}
+              </ul>
+            {% endif %}
             <div class="package-actions">
-              <a href="#contact" class="btn btn-outline btn-sm package-btn">View Details</a>
+              <a href="#contact" class="btn btn-outline btn-sm package-btn">View Package Details</a>
               <a href="#quick-enquiry" class="btn btn-primary btn-sm package-btn">Enquire Now</a>
             </div>
           </div>

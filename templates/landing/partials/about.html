@@ -16,8 +16,8 @@
       <span class="section-eyebrow">{{ about.eyebrow }}</span>
       <h2 class="about-heading">{{ about.heading }}</h2>
 
-      {% if about.paragraph_1 %}<p class="about-desc">{{ about.paragraph_1 }}</p>{% endif %}
-      {% if about.paragraph_2 %}<p class="about-desc">{{ about.paragraph_2 }}</p>{% endif %}
+      {% if about.paragraph_1 %}<p class="about-desc">{{ about.paragraph_1|safe }}</p>{% endif %}
+      {% if about.paragraph_2 %}<p class="about-desc">{{ about.paragraph_2|safe }}</p>{% endif %}
 
       <ul class="about-checklist">
         {% for item in about_checklist %}

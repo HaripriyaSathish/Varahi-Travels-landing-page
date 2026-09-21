@@ -37,6 +37,7 @@
           </span>
           <span class="step-number">{{ forloop.counter|stringformat:"02d" }}</span>
           <h3 class="step-title">{{ step.title }}</h3>
+          {% if step.description %}<p class="step-desc">{{ step.description }}</p>{% endif %}
         </div>
       {% endfor %}
     </div>

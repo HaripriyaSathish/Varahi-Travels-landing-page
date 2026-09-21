@@ -7,7 +7,7 @@
         <span class="section-eyebrow">{{ reviews_section.eyebrow }}</span>
         <h2 class="reviews-title">{{ reviews_section.heading }}</h2>
         {% if reviews_section.subtitle %}
-          <p class="reviews-subtitle">{{ reviews_section.subtitle }}</p>
+          <p class="reviews-subtitle">{{ reviews_section.subtitle|safe }}</p>
         {% endif %}
       </div>
       <div class="packages-nav">

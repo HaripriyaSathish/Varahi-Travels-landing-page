@@ -183,6 +183,10 @@ class TourPackage(models.Model):
     location_tag = models.CharField(max_length=150, help_text="e.g. 'MADURAI · RAMESHWARAM'")
     title = models.CharField(max_length=150, help_text="e.g. 'Madurai – Rameshwaram – 2 Days'")
     description = models.TextField(blank=True)
+    highlights = models.TextField(
+        blank=True,
+        help_text="One highlight per line, e.g.\n2 Days / 1 Night\nMadurai Sightseeing\nTemple & Heritage Attractions"
+    )
     order = models.PositiveIntegerField(default=0)
     is_active = models.BooleanField(default=True)
 
@@ -276,6 +280,7 @@ class WhyUsItem(models.Model):
 
     icon = models.CharField(max_length=20, choices=ICON_CHOICES, default="award")
     title = models.CharField(max_length=100, help_text="e.g. 'Experienced Drivers'")
+    description = models.TextField(blank=True, help_text="e.g. 'Professional drivers focused on a smooth and comfortable travel experience.'")
     order = models.PositiveIntegerField(default=0)
     is_active = models.BooleanField(default=True)
 
@@ -285,7 +290,7 @@ class WhyUsItem(models.Model):
         ordering = ["order"]
 
     def __str__(self):
-        return self.title    
+        return self.title   
 
 
 class DestinationsSection(models.Model):
@@ -350,6 +355,7 @@ class Step(models.Model):
 
     icon = models.CharField(max_length=20, choices=ICON_CHOICES, default="map_pin")
     title = models.CharField(max_length=100, help_text="e.g. 'Choose Your Destination'")
+    description = models.TextField(blank=True, help_text="e.g. 'Share your destination, date, and travel requirements.'")
     order = models.PositiveIntegerField(default=0)
     is_active = models.BooleanField(default=True)
 
@@ -359,7 +365,7 @@ class Step(models.Model):
         ordering = ["order"]
 
     def __str__(self):
-        return self.title    
+        return self.title   
 
 
 class AboutSection(models.Model):
@@ -633,4 +639,4 @@ class FooterSocialLink(models.Model):
         ordering = ["order"]
 
     def __str__(self):
-        return self.get_platform_display()        
+        return self.get_platform_display()

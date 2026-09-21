@@ -6,7 +6,7 @@
       <span class="section-eyebrow">{{ fleet_section.eyebrow }}</span>
       <h2 class="section-title">{{ fleet_section.heading }}</h2>
       {% if fleet_section.subtitle %}
-        <p class="section-subtitle">{{ fleet_section.subtitle }}</p>
+        <p class="section-subtitle">{{ fleet_section.subtitle|safe }}</p>
       {% endif %}
     </div>
 
