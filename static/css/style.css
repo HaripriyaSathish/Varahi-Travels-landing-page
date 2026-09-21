@@ -830,12 +830,20 @@ a { text-decoration: none; color: inherit; }
 
 @media (max-width: 992px) {
   .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; }
-  .gallery-item:first-child, .gallery-item:last-child { grid-row: span 2; }
+  .gallery-item:first-child,
+  .gallery-item:last-child {
+    grid-column: auto;
+    grid-row: span 2;
+  }
 }
 @media (max-width: 600px) {
   .gallery-section { padding: 44px 0; }
   .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 220px; }
-  .gallery-item:first-child, .gallery-item:last-child { grid-row: span 1; }
+  .gallery-item:first-child,
+  .gallery-item:last-child {
+    grid-column: auto;
+    grid-row: span 1;
+  }
 }
 
 /* ===== FAQ SECTION ===== */
