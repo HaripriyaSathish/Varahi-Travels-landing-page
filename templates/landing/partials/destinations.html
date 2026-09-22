@@ -6,7 +6,7 @@
       <span class="section-eyebrow">{{ destinations_section.eyebrow }}</span>
       <h2 class="section-title">{{ destinations_section.heading }}</h2>
       {% if destinations_section.subtitle %}
-        <p class="section-subtitle">{{ destinations_section.subtitle }}</p>
+        <p class="section-subtitle">{{ destinations_section.subtitle|safe }}</p>
       {% endif %}
     </div>
 
