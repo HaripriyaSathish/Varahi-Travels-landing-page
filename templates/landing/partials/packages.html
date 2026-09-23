@@ -12,14 +12,9 @@
       </div>
     </div>
 
-    <div class="packages-carousel">
-      <button type="button" class="packages-arrow packages-arrow-prev" id="packagesPrev" aria-label="Previous">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-      </button>
-
-      <div class="packages-scroll" id="packagesScroll">
+    <div class="packages-grid">
       {% for package in tour_packages %}
-        <article class="package-card reveal" data-package-card>
+        <article class="package-card reveal" data-package-card data-package-target="package-popup-{{ forloop.counter }}">
           <div class="package-image">
             {% if package.image %}<img src="{{ package.image.url }}" alt="{{ package.title }}">{% endif %}
             <span class="package-duration">
@@ -30,27 +25,22 @@
             </span>
             <span class="package-number">{{ forloop.counter|stringformat:"02d" }}</span>
 
-            <div class="package-mobile-actions">
-              <a href="tel:{{ site.phone }}" class="package-mobile-icon" aria-label="Call now" data-no-card-link>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+            <div class="package-icon-actions">
+              <a href="tel:{{ site.phone }}" class="package-icon-badge package-icon-call" aria-label="Call now" data-no-card-link>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.28-.28.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.24.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
                 </svg>
               </a>
               <a href="https://wa.me/{{ site.whatsapp_number }}?text=Hi%2C%20I%27m%20interested%20in%20the%20{{ package.title|urlencode }}.%20Please%20share%20package%20options."
-                 target="_blank" rel="noopener" class="package-mobile-icon" aria-label="Chat on WhatsApp" data-no-card-link>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.001 2C6.478 2 2 6.478 2 12c0 1.821.487 3.53 1.338 5.003L2 22l5.116-1.34A9.94 9.94 0 0012.001 22C17.523 22 22 17.523 22 12S17.523 2 12.001 2zm0 18.174a8.15 8.15 0 01-4.153-1.14l-.298-.177-3.037.796.81-2.96-.194-.304a8.15 8.15 0 01-1.256-4.39c0-4.508 3.667-8.174 8.174-8.174 4.508 0 8.174 3.666 8.174 8.174 0 4.507-3.666 8.175-8.174 8.175z"/></svg>
+                 target="_blank" rel="noopener" class="package-icon-badge package-icon-whatsapp" aria-label="Chat on WhatsApp" data-no-card-link>
+                <svg width="19" height="19" viewBox="0 0 32 32" fill="currentColor">
+                  <path d="M16.001 2.667C8.637 2.667 2.667 8.637 2.667 16c0 2.489.68 4.82 1.865 6.822L2.667 29.333l6.68-1.837A13.28 13.28 0 0 0 16.001 29.333c7.364 0 13.333-5.97 13.333-13.333S23.365 2.667 16.001 2.667zm7.577 18.933c-.318.898-1.579 1.646-2.583 1.86-.687.146-1.585.263-4.604-.988-3.864-1.6-6.352-5.526-6.545-5.78-.185-.253-1.559-2.076-1.559-3.96s.984-2.81 1.334-3.192c.318-.347.71-.434.947-.434.238 0 .476.002.683.013.219.011.514-.083.804.613.318.76 1.081 2.632 1.176 2.823.096.19.16.413.032.667-.128.253-.192.413-.383.635-.191.222-.404.494-.577.664-.191.19-.39.398-.168.782.223.383.992 1.637 2.129 2.651 1.464 1.305 2.699 1.71 3.083 1.902.383.191.607.16.83-.095.223-.254 0.956-1.116 1.212-1.5.256-.383.512-.318.863-.19.351.128 2.223 1.048 2.605 1.239.383.191.638.286.734.446.096.16.096.925-.222 1.822z"/>
+                </svg>
               </a>
             </div>
           </div>
 
           <div class="package-title-bar">{{ package.title }}</div>
-
-          <div class="package-footer">
-            <button type="button" class="btn btn-primary btn-block package-view-btn"
-                    data-package-target="package-popup-{{ forloop.counter }}">
-              View Package Details
-            </button>
-          </div>
 
           <div class="package-popup-source" id="package-popup-{{ forloop.counter }}" hidden>
             {% if package.location_tag %}<span class="package-location">{{ package.location_tag }}</span>{% endif %}
@@ -66,14 +56,7 @@
           </div>
         </article>
       {% endfor %}
-      </div>
-
-      <button type="button" class="packages-arrow packages-arrow-next" id="packagesNext" aria-label="Next">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-      </button>
     </div>
-
-    <p class="packages-swipe-hint">&larr; Swipe to explore &rarr;</p>
 
   </div>
 
@@ -103,25 +86,6 @@
 
 <script>
   (function () {
-    const scroller = document.getElementById('packagesScroll');
-    const prevBtn = document.getElementById('packagesPrev');
-    const nextBtn = document.getElementById('packagesNext');
-    if (!scroller) return;
-
-    function cardStep() {
-      const card = scroller.querySelector('.package-card');
-      return card ? card.offsetWidth + 24 : 340;
-    }
-
-    prevBtn.addEventListener('click', function () {
-      scroller.scrollBy({ left: -cardStep(), behavior: 'smooth' });
-    });
-    nextBtn.addEventListener('click', function () {
-      scroller.scrollBy({ left: cardStep(), behavior: 'smooth' });
-    });
-
-    // "View Package Details" opens a popup with that package's
-    // description, highlights, and Call / Enquire Now actions.
     const modal = document.getElementById('packageModal');
     const modalBody = document.getElementById('packageModalBody');
 
@@ -141,9 +105,10 @@
       document.body.style.overflow = '';
     }
 
-    scroller.querySelectorAll('.package-view-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        openPackageModal(btn.dataset.packageTarget);
+    document.querySelectorAll('[data-package-card]').forEach(function (card) {
+      card.addEventListener('click', function (e) {
+        if (e.target.closest('[data-no-card-link]')) return;
+        openPackageModal(card.dataset.packageTarget);
       });
     });
 
