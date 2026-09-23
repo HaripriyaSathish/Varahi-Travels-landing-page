@@ -162,11 +162,17 @@ a { text-decoration: none; color: inherit; }
 .hero {
   position: relative;
   min-height: auto;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   align-items: center;
   background-color: var(--navy-dark);
   padding: 100px 0 10px;
+}
+.hero-media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
 }
 .hero-bg {
   position: absolute;
@@ -465,7 +471,7 @@ a { text-decoration: none; color: inherit; }
 }
 .package-icon-badge:hover {
   transform: scale(1.15);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4), 0 0 0 2px rgba(255,255,255,0.9);
 }
 .package-icon-call { background: var(--orange); }
 .package-icon-whatsapp { background: #25D366; }
@@ -494,6 +500,7 @@ a { text-decoration: none; color: inherit; }
 .package-card:hover .package-title-bar {
   background: var(--orange-dark);
 }
+
 .package-location { color: var(--orange); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; }
 .package-title { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin: 8px 0 8px; line-height: 1.3; }
 .package-desc { font-size: 0.85rem; color: #6b7280; line-height: 1.5; margin: 0 0 16px; }
@@ -1194,29 +1201,74 @@ a { text-decoration: none; color: inherit; }
 }
 
 @media (max-width: 600px) {
-  .hero { min-height: auto; padding: 90px 0 20px; }
-  .hero-title { font-size: 1.7rem; }
-  .hero-desc { font-size: 0.92rem; }
-  .hero-badge { font-size: 0.7rem; padding: 6px 12px; }
-  .hero-buttons .btn { width: 100%; }
-  .hero-buttons { flex-direction: column; }
+  .hero {
+    padding: 0;
+    background: transparent;
+    display: block;
+  }
+  .hero-media {
+    position: absolute;
+    inset: auto;
+    top: 0; left: 0; right: 0;
+    height: 220px;
+  }
+  .hero-grid {
+    display: block;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 90px 0 16px;
+    box-sizing: border-box;
+  }
+  .hero-badge,
+  .hero-desc,
+  .hero-buttons,
+  .hero-trust-list { display: none; }
+  .hero-title {
+    font-size: 1.3rem;
+    margin: 0;
+    color: #ffffff;
+  }
 
-  .enquiry-card { padding: 20px; border-radius: 12px; }
+  .enquiry-card {
+    background: #ffffff;
+    border: 1px solid #eef1f5;
+    box-shadow: 0 10px 28px rgba(15,30,51,0.14);
+    margin-top: 24px;
+    border-radius: 12px;
+    position: relative;
+    z-index: 2;
+  }
+  .enquiry-card h3 { color: var(--navy); }
+  .enquiry-label { color: var(--orange); }
+  .form-group label { color: #6b7280; }
+  .form-group input, .form-group select {
+    background: #f8f9fb;
+    border: 1px solid #e3e7ee;
+    color: #1a1f2b;
+  }
+  .form-group input::placeholder { color: #9ca3af; }
+  .form-group input:focus, .form-group select:focus { border-color: var(--orange); background: #ffffff; }
+  .form-group select option { background: #ffffff; color: #1a1f2b; }
+
   .form-row { grid-template-columns: 1fr; gap: 12px; }
   .container { padding: 0 16px; }
 }
 
-/* Floating WhatsApp / Call buttons */
-.floating-actions {
+/* Floating WhatsApp / Call buttons — call bottom-left, WhatsApp bottom-right */
+.fab-wrap {
   position: fixed;
-  right: 24px;
   bottom: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
   z-index: 999;
   transition: transform 0.3s ease;
 }
+.fab-wrap-left { left: 24px; }
+.fab-wrap-right { right: 24px; }
 
 .fab {
   width: 56px;
@@ -1268,12 +1320,22 @@ a { text-decoration: none; color: inherit; }
 }
 
 @media (max-width: 480px) {
-  .floating-actions {
-    right: 16px;
-    bottom: 16px;
-  }
+  .fab-wrap-left { left: 16px; }
+  .fab-wrap-right { right: 16px; }
+  .fab-wrap { bottom: 16px; }
   .fab {
     width: 50px;
     height: 50px;
   }
+}
+
+@media (max-width: 600px) {
+  .site-header {
+    background: #ffffff;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .site-header .main-nav a { color: #384252; }
+  .site-header .brand-text strong { color: #16243b; }
+  .site-header .btn-outline { color: var(--navy); border-color: var(--navy); }
+  .site-header .hamburger span { background: var(--navy); }
 }

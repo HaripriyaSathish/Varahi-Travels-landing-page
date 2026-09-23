@@ -1,9 +1,11 @@
 {% load static %}
 <section class="hero" id="home">
-  {% if hero.background_image %}
-    <div class="hero-bg" style="background-image:url('{{ hero.background_image.url }}');"></div>
-  {% endif %}
-  <div class="hero-overlay"></div>
+  <div class="hero-media">
+    {% if hero.background_image %}
+      <div class="hero-bg" style="background-image:url('{{ hero.background_image.url }}');"></div>
+    {% endif %}
+    <div class="hero-overlay"></div>
+  </div>
 
   <div class="container hero-grid">
 
@@ -157,8 +159,6 @@
     const lettersOnlyIds = ['pickup_location', 'destination'];
     const phoneField = form.querySelector('#phone_number');
 
-    // Block disallowed characters as the user types, instead of only
-    // catching it on submit.
     lettersOnlyIds.forEach(function (id) {
       const field = form.querySelector('#' + id);
       field.addEventListener('input', function () {

@@ -1,11 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const fab = document.getElementById("floatingActions");
   const footer = document.querySelector("footer");
   const header = document.querySelector(".site-header");
+  const fabs = [
+    document.getElementById("fabCall"),
+    document.getElementById("fabWhatsapp"),
+  ].filter(Boolean);
 
-  if (!fab || !footer) return;
+  if (!fabs.length || !footer) return;
 
-  function updateFabPosition() {
+  function updatePosition(fab) {
     // Measure from the untransformed position each time, otherwise the
     // previous frame's shift compounds into this one.
     fab.style.transform = "translateY(0)";
@@ -26,7 +29,11 @@ document.addEventListener("DOMContentLoaded", function () {
     if (shift > 0) fab.style.transform = `translateY(-${shift}px)`;
   }
 
-  window.addEventListener("scroll", updateFabPosition);
-  window.addEventListener("resize", updateFabPosition);
-  updateFabPosition();
+  function updateAll() {
+    fabs.forEach(updatePosition);
+  }
+
+  window.addEventListener("scroll", updateAll);
+  window.addEventListener("resize", updateAll);
+  updateAll();
 });
