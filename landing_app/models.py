@@ -1,3 +1,4 @@
+import re
 from django.db import models
 
 
@@ -196,7 +197,17 @@ class TourPackage(models.Model):
         ordering = ["order"]
 
     def __str__(self):
-        return self.title    
+        return self.title
+
+    @property
+    def whatsapp_title(self):
+        """Title without the trailing '– 2 Days' part, used in the WhatsApp message."""
+        return re.sub(
+            r'\s*[–—-]\s*\d+\s*days?(\s*/\s*\d+\s*nights?)?\s*$',
+            '',
+            self.title or '',
+            flags=re.IGNORECASE,
+        ).strip()  
 
 
 class ServicesSection(models.Model):
